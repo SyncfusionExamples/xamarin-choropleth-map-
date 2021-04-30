@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:sfmaps="clr-namespace:Syncfusion.SfMaps.XForms;assembly=Syncfusion.SfMaps.XForms" 
+             xmlns:local="clr-namespace:Choropleth_Map" BackgroundColor="White"
+             x:Class="Choropleth_Map.MainPage">
+
+    <StackLayout Margin="10" BackgroundColor="White" HorizontalOptions="Center" VerticalOptions="Center">
+        <StackLayout.BindingContext>
+            <local:ViewModel />
+        </StackLayout.BindingContext>
+        <Label Text="World Population Density(per sq. km.)" HorizontalOptions="Center" FontSize="20" />
+        <sfmaps:SfMaps Grid.Row="1" >
+            <sfmaps:SfMaps.Layers>
+                <sfmaps:ShapeFileLayer Uri="world-map.shp" ItemsSource="{Binding WorldPopulationDensityDetails}" ShapeIDTableField="name" ShapeIDPath="CountryName" >
+                    <sfmaps:ShapeFileLayer.ShapeSettings>
+                        <sfmaps:ShapeSetting  ShapeColorValuePath="Density" >
+                            <sfmaps:ShapeSetting.ColorMappings>
+                                <sfmaps:RangeColorMapping From="0" To="25" Color="#dfa9fe" LegendLabel="0 - 25" />
+                                <sfmaps:RangeColorMapping From="25" To="75" Color="#bd4efd" LegendLabel="25 - 75" />
+                                <sfmaps:RangeColorMapping From="75" To="150" Color="#a611fc" LegendLabel="75 - 150" />
+                                <sfmaps:RangeColorMapping From="150" To="400" Color="#9703ec" LegendLabel="150 - 400"/>
+                                <sfmaps:RangeColorMapping From="400" To="50000" Color="#7002b0" LegendLabel=">400"/>
+                            </sfmaps:ShapeSetting.ColorMappings>
+                        </sfmaps:ShapeSetting>
+                    </sfmaps:ShapeFileLayer.ShapeSettings>
+                    <sfmaps:ShapeFileLayer.LegendSettings>
+                        <sfmaps:MapLegendSetting ShowLegend="True"  LegendPosition="50,90" />
+                    </sfmaps:ShapeFileLayer.LegendSettings>
+                </sfmaps:ShapeFileLayer>
+            </sfmaps:SfMaps.Layers>
+        </sfmaps:SfMaps>
+    </StackLayout>
+
+</ContentPage>
